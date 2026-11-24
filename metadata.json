@@ -1,0 +1,6 @@
+{
+  "name": "Explorador Intuitivo de SVM — Tutor MOCAVI",
+  "description": "Plataforma educativa interactiva de aprendizaje automático para grado 9no con simulador matemático SVM en tiempo real (Lineal, Polinomial, RBF y elevación 3D), tutor socrático MOCAVI y visor documental DAPI 01-09.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

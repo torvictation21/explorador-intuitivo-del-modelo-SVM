@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Explorador Intuitivo de SVM — Tutor MOCAVI</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-secondary":"#ffffff","primary-fixed":"#dbe1ff","surface-tint":"#0053db","error":"#ba1a1a","inverse-primary":"#b4c5ff","on-primary-container":"#eeefff","on-tertiary":"#ffffff","on-background":"#131b2e","inverse-surface":"#283044","tertiary":"#006243","on-error-container":"#93000a","primary":"#004ac6","error-container":"#ffdad6","on-secondary-container":"#571a00","on-tertiary-fixed":"#002114","inverse-on-surface":"#eef0ff","secondary-container":"#fd651e","secondary-fixed":"#ffdbce","surface":"#faf8ff","secondary-fixed-dim":"#ffb599","on-surface":"#131b2e","on-secondary-fixed-variant":"#7f2b00","on-tertiary-fixed-variant":"#005137","outline-variant":"#c3c6d7","on-primary-fixed-variant":"#003ea8","surface-container-highest":"#dae2fd","surface-container-lowest":"#ffffff","tertiary-fixed":"#85f8c4","secondary":"#a73a00","primary-container":"#2563eb","surface-container":"#eaedff","surface-variant":"#dae2fd","tertiary-container":"#007d57","on-tertiary-container":"#bdffdc","background":"#faf8ff","surface-container-low":"#f2f3ff","on-surface-variant":"#434655","primary-fixed-dim":"#b4c5ff","on-primary":"#ffffff","on-secondary-fixed":"#370e00","tertiary-fixed-dim":"#68dba9","surface-dim":"#d2d9f4","on-primary-fixed":"#00174b","surface-bright":"#faf8ff","on-error":"#ffffff","outline":"#737686","surface-container-high":"#e2e7ff"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","gutter-mobile":"1rem","margin-mobile":"1rem","space-xs":"0.25rem","margin":"2rem","gutter":"1.5rem","space-xl":"2.5rem"},"fontFamily":{"label-code-lg":["JetBrains Mono"],"display-hero":["Outfit"],"headline-md":["Outfit"],"label-code-sm":["JetBrains Mono"],"display-hero-mobile":["Outfit"],"headline-lg":["Outfit"],"interactive-pill":["Outfit"],"body-lg":["Inter"],"headline-lg-mobile":["Outfit"],"headline-sm":["Outfit"],"body-md":["Inter"],"body-sm":["Inter"]},"fontSize":{"label-code-lg":["14px",{"lineHeight":"20px","fontWeight":"500"}],"display-hero":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-code-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"display-hero-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"interactive-pill":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","fontWeight":"400"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"0em","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"22px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-surface-container-high flex items-center justify-center"><svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24"><circle cx="5" cy="6" fill="currentColor" fill-opacity="0.2" r="2.5"></circle><circle cx="19" cy="18" fill="currentColor" fill-opacity="0.2" r="2.5"></circle><line stroke-dasharray="1 0" x1="2" x2="22" y1="20" y2="4"></line><line stroke="currentColor" stroke-dasharray="2 2" stroke-width="1.2" x1="6" x2="22" y1="22" y2="6"></line><line stroke="currentColor" stroke-dasharray="2 2" stroke-width="1.2" x1="2" x2="18" y1="18" y2="2"></line></svg></div><div><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight block leading-tight">Explorador SVM</span><span class="font-label-code-sm text-label-code-sm text-on-surface-variant block leading-none">Tutor MOCAVI • 9no Grado</span></div></div><div class="hidden sm:inline-flex items-center gap-1.5 px-space-sm py-space-xs rounded-full bg-tertiary-fixed text-on-tertiary-fixed"><span class="material-symbols-outlined text-[15px]">lock</span><span class="font-interactive-pill text-interactive-pill font-medium">Sesión Anónima (Cero PII)</span></div></div><nav class="hidden lg:flex items-center gap-space-sm bg-surface-container-low px-space-xs py-space-xs rounded-full" data-active-classes="bg-primary-container text-on-primary-container font-headline-sm"><a aria-current="page" class="px-space-md py-1.5 rounded-full transition-colors bg-primary-container text-on-primary-container font-headline-sm" data-path="laboratorio-interactivo" href="#">Laboratorio Interactivo</a><a class="px-space-md py-1.5 rounded-full font-interactive-pill text-interactive-pill text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="retos-guiados" href="#">Retos Guiados</a><a class="px-space-md py-1.5 rounded-full font-interactive-pill text-interactive-pill text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="glosario-geometrico" href="#">Glosario Geométrico</a></nav><div class="flex items-center gap-space-sm"><a class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-highest text-on-surface hover:bg-surface-container-high hover:text-on-surface transition-all font-headline-sm text-headline-sm" data-path="traza-pedagogica-docente" href="#"><span class="material-symbols-outlined text-[18px] text-primary">monitoring</span><span>Traza Pedagógica / Panel Docente</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full flex-1 pt-16 bg-surface flex flex-col"><div class="flex flex-col w-full text-on-surface">
+<!-- 1. BARRA SUPERIOR CONTEXTUAL (Header Integrado MOCAVI) -->
+<header class="w-full bg-surface-container-lowest shadow-sm px-gutter py-space-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md w-full md:w-auto">
+<div class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-surface-tint flex items-center justify-center shadow-md flex-shrink-0">
+<svg class="w-6 h-6 text-on-primary" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24">
+<circle cx="6" cy="6" fill="currentColor" fill-opacity="0.3" r="3"></circle>
+<circle cx="18" cy="18" fill="currentColor" fill-opacity="0.3" r="3"></circle>
+<line stroke-width="2.5" x1="3" x2="21" y1="21" y2="3"></line>
+<line stroke-dasharray="2 2" stroke-width="1.5" x1="7" x2="21" y1="21" y2="7"></line>
+<line stroke-dasharray="2 2" stroke-width="1.5" x1="3" x2="17" y1="17" y2="3"></line>
+</svg>
+</div>
+<div>
+<div class="flex items-center gap-2 flex-wrap">
+<h1 class="font-headline-md text-headline-md tracking-tight text-on-surface">Explorador Intuitivo de SVM</h1>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-code-sm text-label-code-sm font-semibold">Tutor MOCAVI</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Grado 9no • Geometría y Machine Learning sin Fórmulas Complejas</p>
+</div>
+</div>
+<!-- Badge de privacidad y botón de panel docente -->
+<div class="flex items-center gap-space-md w-full md:w-auto justify-between md:justify-end">
+<!-- Píldora de Privacidad Esmeralda Activa -->
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed shadow-sm">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-tertiary"></span>
+</span>
+<span class="font-interactive-pill text-interactive-pill">🛡️ Sesión Anónima (Cero PII) • Id: <strong class="font-label-code-sm font-semibold">#EST-8492</strong></span>
+</div>
+<!-- Acciones de control docente -->
+<div class="flex items-center gap-space-xs">
+<button class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-inverse-surface text-inverse-on-surface hover:bg-on-surface transition-all shadow-sm font-headline-sm text-headline-sm" id="btn-docente-open">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">folder_special</span>
+<span>📋 Traza Pedagógica / Panel Docente</span>
+</button>
+<button class="p-2 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" id="btn-accessibility" title="Asistencia de Alto Contraste / Lectura Accesible">
+<span class="material-symbols-outlined text-[20px]">contrast</span>
+</button>
+</div>
+</div>
+</header>
+<!-- CONTENEDOR PRINCIPAL: ASIMETRÍA 68% / 32% EN DESKTOP -->
+<div class="w-full px-gutter py-space-md flex-1 flex flex-col lg:flex-row gap-space-lg items-stretch">
+<!-- 2. PANEL IZQUIERDO (68% - LABORATORIO VISOESPACIAL INTERACTIVO) -->
+<section class="w-full lg:w-[68%] flex flex-col gap-space-md bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<!-- Barra superior de escenarios y métricas en vivo -->
+<div class="flex flex-wrap items-center justify-between gap-space-md bg-surface-container-low p-space-sm rounded-xl">
+<!-- Pestañas de escenarios -->
+<div class="flex items-center gap-space-xs flex-wrap" id="scenario-tabs">
+<button class="scenario-tab active-tab px-3.5 py-1.5 rounded-lg font-interactive-pill text-interactive-pill transition-all bg-surface-container-lowest text-primary shadow-sm flex items-center gap-1.5 font-semibold" data-scenario="1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>1. Frontera Limpia</span>
+</button>
+<button class="scenario-tab px-3.5 py-1.5 rounded-lg font-interactive-pill text-interactive-pill transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high flex items-center gap-1.5" data-scenario="2">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span>2. Ruido y Parámetro C</span>
+</button>
+<button class="scenario-tab px-3.5 py-1.5 rounded-lg font-interactive-pill text-interactive-pill transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high flex items-center gap-1.5" data-scenario="3">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span>3. Islas y Kernel 3D</span>
+</button>
+</div>
+<!-- Contadores en vivo (Píldoras semánticas) -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed shadow-sm">
+<span class="material-symbols-outlined text-[17px]">straighten</span>
+<span class="font-interactive-pill text-interactive-pill">Ancho de Pasillo: <strong class="font-label-code-sm" id="margin-width-val">2.50 u (Seguro)</strong></span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-highest text-primary font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[17px]">account_tree</span>
+<span class="font-interactive-pill text-interactive-pill">Pilares (SV): <strong class="font-label-code-sm text-on-surface" id="sv-count-val">4 puntos clave</strong></span>
+</div>
+</div>
+</div>
+<!-- Lienzo Cartesiano 2D Interactivo y Enriquecido -->
+<div class="relative w-full aspect-[4/3] min-h-[460px] max-h-[580px] bg-[#F8FAFC] rounded-xl overflow-hidden shadow-inner flex items-center justify-center select-none" id="canvas-wrapper">
+<!-- SVG PLANO SVM -->
+<svg class="w-full h-full transition-transform duration-500 ease-out" id="svm-canvas" style="transform: perspective(1000px) rotateX(0deg) rotateY(0deg);" viewbox="0 0 800 600">
+<defs>
+<!-- Cuadrícula sutil -->
+<pattern height="40" id="grid-pattern" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E8F0" stroke-width="1"></path>
+</pattern>
+<!-- Gradiente de corridor (calle de seguridad) -->
+<lineargradient id="marginCorridorGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#D1FAE5" stop-opacity="0.55"></stop>
+<stop offset="100%" stop-color="#A7F3D0" stop-opacity="0.45"></stop>
+</lineargradient>
+<!-- Filtro para sombra de puntos -->
+<filter height="140%" id="point-shadow" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#0f172a" flood-opacity="0.18" stddeviation="2"></fedropshadow>
+</filter>
+</defs>
+<!-- Fondo con cuadrícula -->
+<rect fill="url(#grid-pattern)" height="600" width="800"></rect>
+<!-- Regiones de decisión translúcidas -->
+<g id="decision-regions">
+<!-- Zona Clase A (Superior Izquierda) -->
+<polygon fill="#DBEAFE" fill-opacity="0.45" points="0,0 800,0 800,180 0,460"></polygon>
+<!-- Zona Clase B (Inferior Derecha) -->
+<polygon fill="#FFEDD5" fill-opacity="0.45" points="0,600 800,600 800,260 0,540"></polygon>
+<!-- Pasillo central de margen (Corredor SVM) -->
+<polygon fill="url(#marginCorridorGrad)" id="margin-polygon" points="0,460 800,180 800,260 0,540"></polygon>
+</g>
+<!-- Ejes cartesianos principales -->
+<g opacity="0.6" stroke="#94A3B8" stroke-width="1.2">
+<line x1="400" x2="400" y1="10" y2="590"></line>
+<line x1="10" x2="790" y1="300" y2="300"></line>
+</g>
+<!-- Marcas de coordenadas y etiquetas pedagógicas -->
+<g fill="#64748B" font-family="JetBrains Mono" font-size="10" text-anchor="middle">
+<text font-weight="bold" x="770" y="295">X (+)</text>
+<text font-weight="bold" x="30" y="295">X (-)</text>
+<text font-weight="bold" x="415" y="25">Y (+)</text>
+<text font-weight="bold" x="415" y="585">Y (-)</text>
+<!-- Graduaciones discretas -->
+<text x="200" y="315">-2.5</text>
+<text x="600" y="315">+2.5</text>
+<text x="380" y="150">+2.5</text>
+<text x="380" y="450">-2.5</text>
+</g>
+<!-- Líneas de Margen y Calle Central (Hiperplano) -->
+<g id="hyperplane-group">
+<!-- Línea de margen superior (Clase A) -->
+<line id="margin-line-a" stroke="#10B981" stroke-dasharray="6,6" stroke-width="2" x1="0" x2="800" y1="460" y2="180"></line>
+<!-- Hiperplano Separador (La Calle Central) -->
+<line id="hyperplane-main" stroke="#059669" stroke-linecap="round" stroke-width="3.5" x1="0" x2="800" y1="500" y2="220"></line>
+<!-- Línea de margen inferior (Clase B) -->
+<line id="margin-line-b" stroke="#10B981" stroke-dasharray="6,6" stroke-width="2" x1="0" x2="800" y1="540" y2="260"></line>
+<!-- Cotas de distancia de pasillo con flechas -->
+<g fill="#047857" font-family="Outfit" font-size="11" font-weight="bold">
+<line marker-end="url(#arrow)" marker-start="url(#arrow)" stroke="#059669" stroke-width="1.5" x1="430" x2="445" y1="310" y2="352"></line>
+<rect fill="#ECFDF5" height="20" rx="4" width="95" x="445" y="315"></rect>
+<text text-anchor="middle" x="492" y="329">Margen d = 1.25 u</text>
+</g>
+</g>
+<!-- PUNTOS DE DATOS Y PILARES (SV) -->
+<g id="data-points-group">
+<!-- CLASE A (Barrio Azul) - Círculos regulares -->
+<circle class="cursor-pointer transition-transform hover:scale-125" cx="160" cy="180" data-info="Punto Azul (-3.0, +1.5)" fill="#2563EB" filter="url(#point-shadow)" r="8" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle class="cursor-pointer transition-transform hover:scale-125" cx="240" cy="120" data-info="Punto Azul (-2.0, +2.2)" fill="#2563EB" filter="url(#point-shadow)" r="8" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle class="cursor-pointer transition-transform hover:scale-125" cx="320" cy="90" data-info="Punto Azul (-1.0, +2.6)" fill="#2563EB" filter="url(#point-shadow)" r="8" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle class="cursor-pointer transition-transform hover:scale-125" cx="110" cy="280" data-info="Punto Azul (-3.6, +0.2)" fill="#2563EB" filter="url(#point-shadow)" r="8" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle class="cursor-pointer transition-transform hover:scale-125" cx="500" cy="70" data-info="Punto Azul (+1.2, +2.8)" fill="#2563EB" filter="url(#point-shadow)" r="8" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- CLASE A: 2 PILARES SV (Tocan la línea de margen superior) -->
+<!-- Pilar SV A1 -->
+<g class="sv-node cursor-pointer" data-info="Pilar SV Azul #1: Toca el borde exacto del pasillo">
+<circle class="animate-spin" cx="280" cy="362" fill="none" r="16" stroke="#7C3AED" stroke-dasharray="4,3" stroke-width="3" style="transform-origin: 280px 362px; animation-duration: 8s;"></circle>
+<circle cx="280" cy="362" fill="#2563EB" filter="url(#point-shadow)" r="9" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<rect fill="#7C3AED" height="18" rx="4" width="60" x="250" y="325"></rect>
+<text fill="#FFFFFF" font-family="Outfit" font-size="10" font-weight="bold" text-anchor="middle" x="280" y="338">PILAR SV</text>
+</g>
+<!-- Pilar SV A2 -->
+<g class="sv-node cursor-pointer" data-info="Pilar SV Azul #2: Define el ángulo de la calle">
+<circle class="animate-spin" cx="560" cy="264" fill="none" r="16" stroke="#7C3AED" stroke-dasharray="4,3" stroke-width="3" style="transform-origin: 560px 264px; animation-duration: 8s;"></circle>
+<circle cx="560" cy="264" fill="#2563EB" filter="url(#point-shadow)" r="9" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<rect fill="#7C3AED" height="18" rx="4" width="60" x="530" y="227"></rect>
+<text fill="#FFFFFF" font-family="Outfit" font-size="10" font-weight="bold" text-anchor="middle" x="560" y="240">PILAR SV</text>
+</g>
+<!-- CLASE B (Barrio Naranja) - Rombos regulares -->
+<g class="cursor-pointer transition-transform hover:scale-125" transform="translate(680, 480)">
+<polygon fill="#EA580C" filter="url(#point-shadow)" points="0,-9 9,0 0,9 -9,0" stroke="#FFFFFF" stroke-width="2"></polygon>
+</g>
+<g class="cursor-pointer transition-transform hover:scale-125" transform="translate(600, 520)">
+<polygon fill="#EA580C" filter="url(#point-shadow)" points="0,-9 9,0 0,9 -9,0" stroke="#FFFFFF" stroke-width="2"></polygon>
+</g>
+<g class="cursor-pointer transition-transform hover:scale-125" transform="translate(520, 470)">
+<polygon fill="#EA580C" filter="url(#point-shadow)" points="0,-9 9,0 0,9 -9,0" stroke="#FFFFFF" stroke-width="2"></polygon>
+</g>
+<g class="cursor-pointer transition-transform hover:scale-125" transform="translate(720, 360)">
+<polygon fill="#EA580C" filter="url(#point-shadow)" points="0,-9 9,0 0,9 -9,0" stroke="#FFFFFF" stroke-width="2"></polygon>
+</g>
+<!-- CLASE B: 2 PILARES SV (Tocan la línea de margen inferior) -->
+<!-- Pilar SV B1 -->
+<g class="sv-node cursor-pointer" data-info="Pilar SV Naranja #1: Límite estricto Barrio Naranja">
+<circle class="animate-spin" cx="370" cy="410" fill="none" r="16" stroke="#7C3AED" stroke-dasharray="4,3" stroke-width="3" style="transform-origin: 370px 410px; animation-duration: 8s;"></circle>
+<g transform="translate(370, 410)">
+<polygon fill="#EA580C" filter="url(#point-shadow)" points="0,-10 10,0 0,10 -10,0" stroke="#FFFFFF" stroke-width="2.5"></polygon>
+</g>
+<rect fill="#7C3AED" height="18" rx="4" width="60" x="340" y="432"></rect>
+<text fill="#FFFFFF" font-family="Outfit" font-size="10" font-weight="bold" text-anchor="middle" x="370" y="445">PILAR SV</text>
+</g>
+<!-- Pilar SV B2 -->
+<g class="sv-node cursor-pointer" data-info="Pilar SV Naranja #2: Segundo anclaje de separación">
+<circle class="animate-spin" cx="650" cy="312" fill="none" r="16" stroke="#7C3AED" stroke-dasharray="4,3" stroke-width="3" style="transform-origin: 650px 312px; animation-duration: 8s;"></circle>
+<g transform="translate(650, 312)">
+<polygon fill="#EA580C" filter="url(#point-shadow)" points="0,-10 10,0 0,10 -10,0" stroke="#FFFFFF" stroke-width="2.5"></polygon>
+</g>
+<rect fill="#7C3AED" height="18" rx="4" width="60" x="620" y="334"></rect>
+<text fill="#FFFFFF" font-family="Outfit" font-size="10" font-weight="bold" text-anchor="middle" x="650" y="347">PILAR SV</text>
+</g>
+</g>
+<!-- Overlay flotante para vista 3D / Kernel Elevado (Oculto inicialmente) -->
+<g class="hidden opacity-0 transition-opacity duration-500" id="kernel-3d-elevation">
+<!-- Paraboloide / Elevación visual ficticia z = x^2 + y^2 -->
+<ellipse cx="400" cy="300" fill="none" opacity="0.7" rx="340" ry="180" stroke="#7C3AED" stroke-dasharray="4 4" stroke-width="2"></ellipse>
+<ellipse cx="400" cy="300" fill="none" opacity="0.8" rx="220" ry="110" stroke="#7C3AED" stroke-width="2.5"></ellipse>
+<ellipse cx="400" cy="300" fill="#7C3AED" fill-opacity="0.15" rx="100" ry="50"></ellipse>
+<text fill="#6D28D9" font-family="Outfit" font-size="14" font-weight="bold" text-anchor="middle" x="400" y="270">✨ Dimensión Elevada z = x² + y² (Los puntos se separan por altura)</text>
+</g>
+</svg>
+<!-- Leyenda Flotante Elegante en Esquina Inferior Izquierda -->
+<div class="absolute bottom-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md p-2.5 rounded-xl shadow-md text-xs font-body-sm flex flex-col gap-1.5 border border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rounded-full bg-primary inline-block"></span>
+<span class="font-medium text-on-surface">Barrio Azul (Clase A)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rotate-45 bg-secondary-container inline-block"></span>
+<span class="font-medium text-on-surface">Barrio Naranja (Clase B)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-3.5 rounded-full bg-transparent border-2 border-[#7C3AED] inline-block"></span>
+<span class="font-medium text-on-surface">Pilar de Soporte (SV que define el pasillo)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-4 h-1 bg-tertiary-container inline-block rounded-full"></span>
+<span class="font-medium text-on-surface">Calle Central (Línea Óptima)</span>
+</div>
+</div>
+<!-- Indicador de interacción táctil / arrastre -->
+<div class="absolute top-3 right-3 bg-surface-container-lowest/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm font-label-code-sm text-label-code-sm text-on-surface flex items-center gap-1.5 border border-outline-variant/20" id="canvas-tooltip">
+<span class="material-symbols-outlined text-[16px] text-primary">touch_app</span>
+<span>Arrastra o pulsa cualquier punto para experimentar</span>
+</div>
+</div>
+<!-- Barra inferior de controles pedagógicos -->
+<div class="w-full bg-surface-container-low p-space-md rounded-xl flex flex-col xl:flex-row items-center justify-between gap-space-md">
+<!-- Pinceles de inserción -->
+<div class="flex items-center gap-space-xs flex-wrap w-full xl:w-auto">
+<button class="px-3 py-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-primary hover:text-on-primary transition-all font-headline-sm text-headline-sm flex items-center gap-1.5 shadow-sm active:scale-95" id="btn-add-blue">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span>+ Punto Azul</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-lowest text-secondary hover:bg-secondary hover:text-on-secondary transition-all font-headline-sm text-headline-sm flex items-center gap-1.5 shadow-sm active:scale-95" id="btn-add-orange">
+<span class="w-2.5 h-2.5 rotate-45 bg-secondary"></span>
+<span>+ Punto Naranja</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface-variant transition-all shadow-sm" id="btn-reset-scene" title="Reiniciar Escenario">
+<span class="material-symbols-outlined text-[20px]">restart_alt</span>
+</button>
+</div>
+<!-- Slider de Tolerancia C (Interactividad continua) -->
+<div class="flex-1 w-full max-w-sm flex flex-col gap-1">
+<div class="flex items-center justify-between font-interactive-pill text-interactive-pill">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span>Tolerancia a Errores (C):</span>
+<strong class="font-label-code-sm px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold" id="c-param-badge">1.0 (Balanceado)</strong>
+</span>
+</div>
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-tertiary" id="slider-c" max="5.0" min="0.1" step="0.1" type="range" value="1.0"/>
+<div class="flex justify-between text-[11px] font-body-sm text-on-surface-variant">
+<span>Relajado (Margen ancho)</span>
+<span>Estricto (Margen fino)</span>
+</div>
+</div>
+<!-- Selector de frontera y botón 3D -->
+<div class="flex items-center gap-space-sm flex-wrap w-full xl:w-auto justify-end">
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest text-on-surface font-headline-sm text-headline-sm py-2 pl-3 pr-8 rounded-lg shadow-sm focus:outline-none cursor-pointer" id="select-kernel">
+<option selected="" value="linear">Recta (Lineal - 2D)</option>
+<option value="poly">Curva (Polinomial)</option>
+<option value="rbf">Islas (RBF / Distancia)</option>
+</select>
+<span class="material-symbols-outlined text-[18px] absolute right-2 top-2.5 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-highest text-primary hover:bg-primary-fixed-dim transition-all font-headline-sm text-headline-sm flex items-center gap-2 shadow-sm" id="btn-toggle-3d">
+<span class="material-symbols-outlined text-[18px]">view_in_ar</span>
+<span>✨ Vista 3D (Kernel)</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 3. PANEL DERECHO (32% - TUTOR SOCRÁTICO MOCAVI) -->
+<aside class="w-full lg:w-[32%] flex flex-col gap-space-md">
+<!-- Tarjeta Superior: Nodos Ontológicos SVM -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">hub</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Nodos Ontológicos SVM</h2>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-code-sm text-label-code-sm font-bold uppercase tracking-wider">
+            FASE 1: EXPLORACIÓN
+          </span>
+</div>
+<!-- 4 Insignias de Progreso Metodológico -->
+<div class="grid grid-cols-2 gap-space-xs pt-1">
+<!-- Nodo 1 Activo -->
+<div class="p-2 rounded-lg bg-primary-fixed/50 text-primary flex items-center gap-2 shadow-xs ring-2 ring-primary/20">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+<div class="flex flex-col">
+<span class="font-interactive-pill text-[12px] font-bold leading-tight">1. Pilares (SV)</span>
+<span class="font-label-code-sm text-[10px] text-primary">Activo en lienzo</span>
+</div>
+</div>
+<!-- Nodo 2 -->
+<div class="p-2 rounded-lg bg-surface-container text-on-surface-variant flex items-center gap-2 opacity-85">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+<div class="flex flex-col">
+<span class="font-interactive-pill text-[12px] font-semibold leading-tight">2. Margen Óptimo</span>
+<span class="font-label-code-sm text-[10px]">Por consolidar</span>
+</div>
+</div>
+<!-- Nodo 3 -->
+<div class="p-2 rounded-lg bg-surface-container text-on-surface-variant flex items-center gap-2 opacity-85">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+<div class="flex flex-col">
+<span class="font-interactive-pill text-[12px] font-semibold leading-tight">3. Parámetro C</span>
+<span class="font-label-code-sm text-[10px]">Escenario 2</span>
+</div>
+</div>
+<!-- Nodo 4 -->
+<div class="p-2 rounded-lg bg-surface-container text-on-surface-variant flex items-center gap-2 opacity-85">
+<span class="material-symbols-outlined text-[16px]">radio_button_unchecked</span>
+<div class="flex flex-col">
+<span class="font-interactive-pill text-[12px] font-semibold leading-tight">4. Kernel 3D</span>
+<span class="font-label-code-sm text-[10px]">Escenario 3</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tarjeta del Tutor Socrático y Conversación -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl shadow-sm flex flex-col overflow-hidden min-h-[440px]">
+<!-- Cabecera del Tutor -->
+<div class="p-space-md bg-surface-container-low flex items-center justify-between border-b border-surface-container-high/40">
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-tertiary text-on-primary font-headline-sm flex items-center justify-center font-bold shadow-md">
+                TM
+              </div>
+<span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-tertiary ring-2 ring-surface-container-lowest"></span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Tutor-SVM MOCAVI</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm text-tertiary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+<span id="silence-counter">Silencio Activo: 15s (Observando...)</span>
+</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-surface-container-high text-on-surface-variant font-label-code-sm text-[10px]">Andamiaje 9no</span>
+</div>
+<!-- Área de Conversación Socrática Desplazable -->
+<div class="flex-1 p-space-md overflow-y-auto flex flex-col gap-space-md max-h-[380px]" id="chat-messages-container">
+<!-- Mensaje Tutor 1 -->
+<div class="flex gap-2.5 items-start">
+<div class="w-7 h-7 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+              TM
+            </div>
+<div class="bg-surface-container-low p-3.5 rounded-2xl rounded-tl-none max-w-[88%] shadow-xs">
+<p class="font-body-md text-body-md text-on-surface leading-snug">
+                ¡Hola! Observa el espacio vacío entre el <strong class="text-primary font-semibold">Barrio Azul</strong> y el <strong class="text-secondary font-semibold">Barrio Naranja</strong>.
+              </p>
+<p class="font-body-md text-body-md text-on-surface leading-snug mt-2">
+                Nota cómo exactamente <strong>4 puntos</strong> (rodeados por el anillo violeta) son los únicos que tocan las dos líneas de puntos.
+              </p>
+</div>
+</div>
+<!-- Pregunta Socrática Clave (Destacada) -->
+<div class="bg-surface-container-high/60 p-3.5 rounded-xl border-l-4 border-l-tertiary flex flex-col gap-1.5">
+<span class="font-label-code-sm text-label-code-sm text-tertiary font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology</span> Pregunta Socrática
+            </span>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              Si mueves un punto azul lejano del fondo hacia la izquierda: ¿qué crees que le ocurre a la calle verde central? ¿Cambia de posición o se queda completamente inmóvil?
+            </p>
+</div>
+</div>
+<!-- Chips de Respuesta Rápida (Sugerencias Socráticas) -->
+<div class="px-space-md pt-2 pb-1 bg-surface-container-lowest flex flex-col gap-1.5 border-t border-surface-container">
+<span class="font-label-code-sm text-[10px] text-on-surface-variant font-semibold tracking-wide">REPUESTAS GUIADAS:</span>
+<div class="flex flex-wrap gap-1.5" id="quick-chips">
+<button class="quick-chip px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm text-left transition-colors flex items-center gap-1" data-answer="1">
+<span>👉 Moví un punto lejano y la calle no cambió nada</span>
+</button>
+<button class="quick-chip px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm text-left transition-colors flex items-center gap-1" data-answer="2">
+<span>🤔 ¿Por qué solo los 4 pilares mandan en la calle?</span>
+</button>
+<button class="quick-chip px-2.5 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-sm text-body-sm text-left transition-colors flex items-center gap-1" data-answer="3">
+<span>📐 ¿Qué pasa si aumento la tolerancia C?</span>
+</button>
+</div>
+</div>
+<!-- Caja de Entrada del Estudiante -->
+<div class="p-space-md bg-surface-container-low flex flex-col gap-2">
+<form class="flex items-center gap-2" id="chat-form">
+<input class="flex-1 bg-surface-container-lowest text-on-surface px-3 py-2 rounded-xl text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="chat-input" placeholder="Describe con tus palabras lo que ves en el plano..." type="text"/>
+<button class="w-10 h-10 rounded-xl bg-tertiary hover:bg-tertiary-container text-on-tertiary flex items-center justify-center shadow-sm transition-transform active:scale-95 flex-shrink-0" type="submit">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</form>
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-[11px] px-1">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary">sentiment_satisfied</span>
+              Sin calificaciones numéricas punitivas.
+            </span>
+<span>Aprende experimentando.</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- 4. MODAL DOCENTE INTERACTIVO / ARQUITECTURA CURRICULAR DAPI (01 al 09) -->
+<div class="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm hidden flex items-center justify-center p-4" id="modal-dapi">
+<div class="w-full max-w-4xl max-h-[921px] bg-surface-container-lowest rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<!-- Cabecera del Modal -->
+<div class="p-space-lg bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[22px]">account_tree</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-bold">Traza Pedagógica • Marco DAPI (01 al 09)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Especificación de Ingeniería Curricular e Inteligencia Socrática MOCAVI</p>
+</div>
+</div>
+<button class="p-2 rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface transition-colors" id="btn-docente-close">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Cuerpo del Modal con Acordeones / Lista de los 9 Documentos DAPI -->
+<div class="flex-1 p-space-lg overflow-y-auto flex flex-col gap-space-md">
+<!-- Píldora de estado global -->
+<div class="flex items-center justify-between bg-surface-container p-3 rounded-xl">
+<span class="font-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">verified</span>
+            Auditoría de Cumplimiento Curricular y Pedagógico
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-code-sm text-label-code-sm font-bold">
+            9/9 Nodos DAPI Validados
+          </span>
+</div>
+<!-- Grid de Tarjetas DAPI -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- DAPI 01 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-01</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">Activo</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Modelo Pedagógico MOCAVI</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Basado en Zonas de Desarrollo Próximo (Vygotsky). Reemplaza matrices algebraicas por heurísticas visuales táctiles (ancho de calles, pilares de soporte).
+            </p>
+</div>
+<!-- DAPI 02 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-02</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">Validado</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Ontología SVM para Grado 9no</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Taxonomía unificada: Hiperplano → "Calle central", Margen → "Pasillo de seguridad", Vectores de Soporte → "Pilares maestros".
+            </p>
+</div>
+<!-- DAPI 03 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-03</span>
+<span class="text-[11px] font-semibold text-secondary bg-secondary-fixed px-2 py-0.5 rounded-full">Monitoreo</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Modelo Dinámico del Estudiante</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Detecta la preconcepción errónea: "todos los puntos mueven la línea". Modela el cambio conceptual cuando el estudiante descubre la insensibilidad a puntos no-SV.
+            </p>
+</div>
+<!-- DAPI 04 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-04</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">En tiempo real</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Mediación Socrática y Silencio Activo</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Regla de oro: No interrumpir antes de 15 segundos de manipulación en el lienzo. Intervención no directiva mediante preguntas abiertas reflexivas.
+            </p>
+</div>
+<!-- DAPI 05 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-05</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">Sincronizado</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Herramientas y Memoria Dual</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Puente bidireccional entre el plano SVG táctil y el chat reflexivo. Toda acción en el lienzo genera un snapshot de telemetría de aprendizaje anónimo.
+            </p>
+</div>
+<!-- DAPI 06 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-06</span>
+<span class="text-[11px] font-semibold text-primary bg-primary-fixed px-2 py-0.5 rounded-full">Metaprompt Activo</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Metaprompt Maestro del Tutor</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Directrices de lenguaje inclusivo, empatía adolescente, tono de curiosidad compartida y prohibición de respuestas de más de 65 palabras.
+            </p>
+</div>
+<!-- DAPI 07 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-07</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">Aprobado</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">PRD Educativo • Grado 9no</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Alineación con estándares curriculares de geometría plana, pendiente de una recta, noción intuitiva de optimización de distancias y toma de decisiones.
+            </p>
+</div>
+<!-- DAPI 08 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-08</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">WCAG AAA</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Vibe Design Spec • Accesibilidad</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Contrastes mínimos 7:1 en textos clave, no basarse únicamente en color (distinción por forma: círculos vs rombos vs anillos violeta).
+            </p>
+</div>
+<!-- DAPI 09 -->
+<div class="p-space-md bg-surface-container-low rounded-xl flex flex-col gap-1.5 md:col-span-2">
+<div class="flex items-center justify-between">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary">DAPI-09</span>
+<span class="text-[11px] font-semibold text-tertiary bg-tertiary-fixed px-2 py-0.5 rounded-full">Zero-PII Engine</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Arquitectura Full-Stack de Referencia</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Sin cookies de rastreo, sesiones en memoria volátil de navegador, servidor de inferencia sin retención de datos personales estudiantiles.
+            </p>
+</div>
+</div>
+</div>
+<!-- Pie del Modal -->
+<div class="p-space-md bg-surface-container flex items-center justify-between">
+<span class="font-body-sm text-on-surface-variant">Marco de Referencia MOCAVI versión 3.4 • Listo para auditoría ministerial</span>
+<button class="px-space-md py-2 rounded-xl bg-primary text-on-primary font-headline-sm text-headline-sm shadow-sm hover:bg-surface-tint transition-all" id="btn-docente-close-bottom">
+          Cerrar y Volver al Laboratorio
+        </button>
+</div>
+</div>
+</div>
+<!-- SCRIPT INTERACTIVO CLIENT-SIDE (EXPERIMENTACIÓN EN VIVO) -->
+<script>
+    (function initSVMExplorer() {
+      // 1. Manejo del Modal Docente DAPI
+      const modal = document.getElementById('modal-dapi');
+      const btnOpen = document.getElementById('btn-docente-open');
+      const btnClose = document.getElementById('btn-docente-close');
+      const btnCloseBottom = document.getElementById('btn-docente-close-bottom');
+
+      function openModal() {
+        modal.classList.remove('hidden');
+      }
+      function closeModal() {
+        modal.classList.add('hidden');
+      }
+
+      if (btnOpen) btnOpen.addEventListener('click', openModal);
+      if (btnClose) btnClose.addEventListener('click', closeModal);
+      if (btnCloseBottom) btnCloseBottom.addEventListener('click', closeModal);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeModal();
+        }
+      });
+
+      // 2. Control de Slider de Tolerancia C (Interactividad en el pasillo)
+      const sliderC = document.getElementById('slider-c');
+      const marginBadge = document.getElementById('margin-width-val');
+      const cBadge = document.getElementById('c-param-badge');
+      const marginLineA = document.getElementById('margin-line-a');
+      const marginLineB = document.getElementById('margin-line-b');
+      const marginPoly = document.getElementById('margin-polygon');
+
+      if (sliderC) {
+        sliderC.addEventListener('input', (e) => {
+          const val = parseFloat(e.target.value);
+          // A menor C -> pasillo más ancho; a mayor C -> pasillo más fino y estricto
+          const calculatedWidth = (3.2 / Math.sqrt(val)).toFixed(2);
+          const offset = Math.round(25 * (2.0 / val));
+
+          if (marginBadge) {
+            marginBadge.textContent = calculatedWidth + ' u ' + (val > 2.5 ? '(Estricto)' : val < 0.8 ? '(Muy Amplio)' : '(Seguro)');
+          }
+          if (cBadge) {
+            cBadge.textContent = val.toFixed(1) + (val > 2.5 ? ' (Poco permisivo)' : val < 0.8 ? ' (Relajado)' : ' (Balanceado)');
+          }
+
+          // Ajuste visual en el SVG del corredor
+          if (marginLineA && marginLineB && marginPoly) {
+            const yA_start = 500 - offset;
+            const yA_end = 220 - offset;
+            const yB_start = 500 + offset;
+            const yB_end = 220 + offset;
+
+            marginLineA.setAttribute('y1', yA_start);
+            marginLineA.setAttribute('y2', yA_end);
+            marginLineB.setAttribute('y1', yB_start);
+            marginLineB.setAttribute('y2', yB_end);
+            marginPoly.setAttribute('points', `0,${yA_start} 800,${yA_end} 800,${yB_end} 0,${yB_start}`);
+          }
+        });
+      }
+
+      // 3. Pestañas de Escenarios Pedagógicos
+      const tabs = document.querySelectorAll('.scenario-tab');
+      const svCountVal = document.getElementById('sv-count-val');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+            t.classList.add('text-on-surface-variant');
+            const dot = t.querySelector('span:first-child');
+            if (dot) {
+              dot.classList.remove('bg-primary');
+              dot.classList.add('bg-outline-variant');
+            }
+          });
+
+          tab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+          tab.classList.remove('text-on-surface-variant');
+          const activeDot = tab.querySelector('span:first-child');
+          if (activeDot) {
+            activeDot.classList.remove('bg-outline-variant');
+            activeDot.classList.add('bg-primary');
+          }
+
+          const scId = tab.getAttribute('data-scenario');
+          handleScenarioChange(scId);
+        });
+      });
+
+      function handleScenarioChange(id) {
+        if (id === '1') {
+          if (svCountVal) svCountVal.textContent = '4 puntos clave';
+          addChatMessage('Tutor-SVM MOCAVI', 'Has vuelto al Escenario 1: Frontera Limpia. Observa cómo los 4 pilares con anillo violeta mantienen en equilibrio el pasillo.', false);
+        } else if (id === '2') {
+          if (svCountVal) svCountVal.textContent = '6 puntos (2 invasores)';
+          addChatMessage('Tutor-SVM MOCAVI', 'Escenario 2: Hemos añadido puntos cerca de la frontera. Prueba mover el deslizador C para ver si toleramos invasores en el pasillo o estrechamos la calle.', false);
+        } else if (id === '3') {
+          if (svCountVal) svCountVal.textContent = 'Requiere elevación 3D';
+          addChatMessage('Tutor-SVM MOCAVI', 'Escenario 3: Los puntos están en círculos concéntricos. ¡Una recta no puede separarlos! Pulsa el botón "Vista 3D" para elevarlos en una dimensión extra.', false);
+        }
+      }
+
+      // 4. Toggle Vista 3D (Kernel Elevado)
+      const btn3D = document.getElementById('btn-toggle-3d');
+      const canvasSVG = document.getElementById('svm-canvas');
+      const kernelElevationGroup = document.getElementById('kernel-3d-elevation');
+      let is3D = false;
+
+      if (btn3D) {
+        btn3D.addEventListener('click', () => {
+          is3D = !is3D;
+          if (is3D) {
+            canvasSVG.style.transform = 'perspective(800px) rotateX(28deg) rotateY(-8deg) scale(0.95)';
+            if (kernelElevationGroup) {
+              kernelElevationGroup.classList.remove('hidden');
+              setTimeout(() => kernelElevationGroup.classList.remove('opacity-0'), 20);
+            }
+            btn3D.classList.remove('bg-surface-container-highest', 'text-primary');
+            btn3D.classList.add('bg-primary', 'text-on-primary');
+            addChatMessage('Tutor-SVM MOCAVI', '¡Excelente! Al elevar los puntos al espacio 3D, una hoja plana corta fácilmente las dos clases. Esto es el "Truco del Kernel".', false);
+          } else {
+            canvasSVG.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+            if (kernelElevationGroup) {
+              kernelElevationGroup.classList.add('opacity-0');
+              setTimeout(() => kernelElevationGroup.classList.add('hidden'), 500);
+            }
+            btn3D.classList.add('bg-surface-container-highest', 'text-primary');
+            btn3D.classList.remove('bg-primary', 'text-on-primary');
+          }
+        });
+      }
+
+      // 5. Chat Socrático Interactivo y Chips Rápidos
+      const chatContainer = document.getElementById('chat-messages-container');
+      const chatForm = document.getElementById('chat-form');
+      const chatInput = document.getElementById('chat-input');
+      const quickChips = document.querySelectorAll('.quick-chip');
+      const silenceCounter = document.getElementById('silence-counter');
+
+      let timerSec = 15;
+      setInterval(() => {
+        if (timerSec > 0) {
+          timerSec--;
+          if (silenceCounter) silenceCounter.textContent = `Silencio Activo: ${timerSec}s (Observando...)`;
+        } else {
+          if (silenceCounter) silenceCounter.textContent = `Tutor listo para dialogar`;
+        }
+      }, 1000);
+
+      function addChatMessage(sender, text, isStudent = false) {
+        const wrap = document.createElement('div');
+        wrap.className = isStudent ? 'flex gap-2.5 items-start justify-end' : 'flex gap-2.5 items-start';
+
+        const bubble = document.createElement('div');
+        bubble.className = isStudent 
+          ? 'bg-primary text-on-primary p-3.5 rounded-2xl rounded-tr-none max-w-[85%] shadow-xs font-body-md text-body-md'
+          : 'bg-surface-container-low text-on-surface p-3.5 rounded-2xl rounded-tl-none max-w-[85%] shadow-xs font-body-md text-body-md';
+        
+        bubble.innerHTML = text;
+
+        if (!isStudent) {
+          const avatar = document.createElement('div');
+          avatar.className = 'w-7 h-7 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5';
+          avatar.textContent = 'TM';
+          wrap.appendChild(avatar);
+          wrap.appendChild(bubble);
+        } else {
+          wrap.appendChild(bubble);
+        }
+
+        chatContainer.appendChild(wrap);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        timerSec = 20; // reset active silence
+      }
+
+      quickChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const text = chip.innerText.trim();
+          addChatMessage('Estudiante', text, true);
+
+          setTimeout(() => {
+            const ansId = chip.getAttribute('data-answer');
+            if (ansId === '1') {
+              addChatMessage('Tutor-SVM MOCAVI', '¡Exacto! Esa es la magia central de SVM: los puntos que están lejos del límite tienen <strong>peso cero</strong> en la decisión. Solo importan los puntos que rozan el pasillo.', false);
+            } else if (ansId === '2') {
+              addChatMessage('Tutor-SVM MOCAVI', 'Porque si la calle se moviese un solo milímetro hacia cualquiera de esos 4 pilares, chocaría con su zona de seguridad. Son los centinelas más cercanos del barrio.', false);
+            } else if (ansId === '3') {
+              addChatMessage('Tutor-SVM MOCAVI', 'Un parámetro C alto le exige al algoritmo: <em>"¡No toleres que ningún punto pise el pasillo!"</em>. Eso estrecha la calle. Prueba mover el slider para confirmarlo.', false);
+            }
+          }, 600);
+        });
+      });
+
+      if (chatForm) {
+        chatForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const query = chatInput.value.trim();
+          if (!query) return;
+
+          addChatMessage('Estudiante', query, true);
+          chatInput.value = '';
+
+          setTimeout(() => {
+            addChatMessage('Tutor-SVM MOCAVI', 'Gran reflexión. ¿Notaste qué característica geométrica comparten los 4 pilares violetas con respecto al pasillo verde?', false);
+          }, 800);
+        });
+      }
+
+      // 6. Tooltips en clics de puntos SVG
+      const nodes = document.querySelectorAll('#svm-canvas circle, #svm-canvas polygon, .sv-node');
+      const tooltip = document.getElementById('canvas-tooltip');
+
+      nodes.forEach(node => {
+        node.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const info = node.getAttribute('data-info') || node.closest('.sv-node')?.getAttribute('data-info');
+          if (info && tooltip) {
+            tooltip.innerHTML = `<span class="material-symbols-outlined text-[16px] text-primary">info</span><span>${info}</span>`;
+            tooltip.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
+            setTimeout(() => {
+              tooltip.classList.remove('bg-primary-fixed', 'text-on-primary-fixed');
+            }, 3000);
+          }
+        });
+      });
+
+      // 7. Botones de agregar puntos ficticios
+      const btnAddBlue = document.getElementById('btn-add-blue');
+      const btnAddOrange = document.getElementById('btn-add-orange');
+      const dataGroup = document.getElementById('data-points-group');
+
+      if (btnAddBlue && dataGroup) {
+        btnAddBlue.addEventListener('click', () => {
+          const randX = Math.floor(80 + Math.random() * 260);
+          const randY = Math.floor(60 + Math.random() * 200);
+          const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          c.setAttribute('cx', randX);
+          c.setAttribute('cy', randY);
+          c.setAttribute('r', '8');
+          c.setAttribute('fill', '#2563EB');
+          c.setAttribute('stroke', '#FFFFFF');
+          c.setAttribute('stroke-width', '2');
+          c.setAttribute('class', 'cursor-pointer');
+          c.setAttribute('data-info', `Punto Azul añadido (${randX}, ${randY})`);
+          dataGroup.appendChild(c);
+          addChatMessage('Tutor-SVM MOCAVI', `Añadiste un punto azul en (${randX}, ${randY}). Fíjate si modificó la calle o si quedó como punto no crítico.`, false);
+        });
+      }
+
+      if (btnAddOrange && dataGroup) {
+        btnAddOrange.addEventListener('click', () => {
+          const randX = Math.floor(480 + Math.random() * 280);
+          const randY = Math.floor(340 + Math.random() * 200);
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.setAttribute('transform', `translate(${randX}, ${randY})`);
+          g.setAttribute('class', 'cursor-pointer');
+          g.setAttribute('data-info', `Punto Naranja añadido (${randX}, ${randY})`);
+          
+          const p = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+          p.setAttribute('points', '0,-9 9,0 0,9 -9,0');
+          p.setAttribute('fill', '#EA580C');
+          p.setAttribute('stroke', '#FFFFFF');
+          p.setAttribute('stroke-width', '2');
+          g.appendChild(p);
+          dataGroup.appendChild(g);
+          addChatMessage('Tutor-SVM MOCAVI', `Añadiste un punto naranja en (${randX}, ${randY}). Si no está en el borde del pasillo, la calle sigue inalterada.`, false);
+        });
+      }
+
+      // Reiniciar escenario
+      const btnReset = document.getElementById('btn-reset-scene');
+      if (btnReset) {
+        btnReset.addEventListener('click', () => {
+          if (sliderC) {
+            sliderC.value = 1.0;
+            sliderC.dispatchEvent(new Event('input'));
+          }
+          if (is3D && btn3D) btn3D.click();
+          addChatMessage('Tutor-SVM MOCAVI', 'Lienzo restablecido al estado estándar de aprendizaje.', false);
+        });
+      }
+
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-low py-space-md"><div class="w-full px-gutter flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left"><p class="font-body-sm text-body-sm text-on-surface-variant">© Tutoría Inteligente MOCAVI • Inteligencia Artificial Explicable para Educación Secundaria</p><div class="flex items-center gap-space-md font-body-sm text-body-sm text-on-surface-variant"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-tertiary">verified_user</span> Privacidad Estudiantil Activa</span><span>Entorno Didáctico Libre de Sesgo</span></div></div></footer></body></html>
